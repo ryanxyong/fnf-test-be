@@ -8,6 +8,7 @@ const router = express.Router();
 
 // get user's information by ID
 router.get('/info/:id', async (request, response) => {
+    console.log('getting')
     try {
         const user = await UserController.getUser(request.params.id);
         console.log(user);
