@@ -34,9 +34,11 @@ mongoose
     .connect(mongoDBURL)
     .then(() => {
         console.log('Connected to database');
-        app.listen(PORT, () => {
-            console.log(`Listening to port ${PORT}`);
-        });
+        while (true) {
+            app.listen(PORT, () => {
+                console.log(`Listening to port ${PORT}`);
+            });
+        }
     })
     .catch((error) => {
         console.log(error.message);
