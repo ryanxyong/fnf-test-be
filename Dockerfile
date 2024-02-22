@@ -21,4 +21,4 @@ RUN npm i
 # HEALTHCHECK --interval=5s --start-period=45s --timeout=5s --retries=5 CMD node healthcheck.js
 
 # Starts the service
-CMD ["/start.sh", "node", "."]
+CMD ["node", "."]
