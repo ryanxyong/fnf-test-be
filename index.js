@@ -15,10 +15,7 @@ app.use(express.json());
 
 app.use(cors());
 
-app.get('/', (request, response) => {
-    console.log(request);
-    return response.status(234).send('Welcome to FnF');
-});
+
 
 /**
  * Use routes for different functionalities
@@ -44,3 +41,8 @@ mongoose
     .catch((error) => {
         console.log(error.message);
     });
+
+app.get('/', (request, response) => {
+    console.log(request);
+    return response.status(234).send('Welcome to FnF');
+});
