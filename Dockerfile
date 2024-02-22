@@ -4,6 +4,9 @@
 # Available versions are described at https://hub.docker.com/_/node/
 FROM node:16-alpine
 
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
 # Sets the default working directory to /app which is where we copy the service files to.
 WORKDIR /app
 
@@ -18,4 +21,4 @@ RUN npm i
 # HEALTHCHECK --interval=5s --start-period=45s --timeout=5s --retries=5 CMD node healthcheck.js
 
 # Starts the service
-CMD ["node", "."]
+CMD ["/start.sh", "node", "."]
