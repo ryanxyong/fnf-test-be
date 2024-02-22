@@ -4,8 +4,8 @@
 # Available versions are described at https://hub.docker.com/_/node/
 FROM node:16-alpine
 
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
+# COPY start.sh /start.sh
+# RUN chmod +x /start.sh
 
 # Sets the default working directory to /app which is where we copy the service files to.
 WORKDIR /app
