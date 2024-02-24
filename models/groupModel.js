@@ -1,65 +1,37 @@
 import mongoose from "mongoose";
 
-// Define the schema for groups as set out in google doc
-// Required:
-// name: string
-// type: number
-// accessType: number
-//
-// Optional:
-// description: string
-// pic: { data: Buffer, contentType: String }
-// users: array
-// events: array
-// workouts: array
-// chatId: string
-
 const groupSchema = mongoose.Schema(
     {
-        name: {
+        name: { // Assuming 'name' matches frontend expectation ('title' in some frontend objects might be a discrepancy)
             type: String,
             required: true,
         },
-        type: {
+        memberCount: { // Adding this to match frontend data
             type: Number,
-            required: true,
+            required: true, // Assuming this should be required as it's always present in frontend data
+        },
+        icon: { // Assuming 'pic' is equivalent to 'icon' in frontend data; adjust if necessary
+            // HOW TO INPUT AN IMAGE AS ICON??????
+            type: String,
+            required: false, // Set based on frontend usage; change if icon is mandatory
+        },
+        banner: { 
+            type: String,
+            required: false, // Set based on frontend usage; change if banner is mandatory
         },
         description: {
             type: String,
-            required: false,
+            required: false, // Matching frontend; ensure required status matches actual needs
         },
-        pic: {
-            data: Buffer,
-            contentType: String,
-        },
-        users: {
+        events: { 
             type: [],
-            required: false,
-        },
-        events: {
-            type: [],
-            required: false,
-        },
-        workouts: {
-            type: [],
-            required: false,
-        },
-        chatId: {
-            type: String,
-            required: false,
-        },
-        accessType: {
-            type: Number,
-            required: true,
-        },
-        location: {
-            type: String,
             required: false,
         },
     },
     {
-        timestamps: true,
+        timestamps: true, // Keeping timestamps for creation and update tracking
     }
 );
+
 
 export const Group = mongoose.model('Group', groupSchema);

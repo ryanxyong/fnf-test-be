@@ -34,14 +34,18 @@ export const signup = async ({ email, password }) => {
       user.email = email;
       user.password = password;
 
-      user._userId = '';
-      user.fullName = '';
-      user.bday = '';
-      user.birthday = '';
-      user.gender = '';
-      user.pic = '';
-      user.bio = '';
+      user.firstName = '';
+      user.lastName = '';
+      user.id = '';
+      user.profilePic = '';
+      user.phoneNumber = '';
+      user.timeCreated = Date.now() / 1000;
+      user.data = {};
       user.workouts = [];
+      user.schedule = {};
+      user.events = [];
+      user.teamWorkouts = []
+      user.settings = {};
 
       await user.save();
       
@@ -61,18 +65,19 @@ export const signup = async ({ email, password }) => {
 // }
 
 export async function getUser(id) {
-    const user = await User.findById(id);
+    const user = await User.findById(id).lean();
+    if (!user) {
+        throw new Error('User not found');
+    }
     return user;
 }
 
-export async function updateUser(request) {
-    const { id } = request.params;
-    const result = await User.findByIdAndUpdate(id, request.body);
+export async function updateUser(id, userFields) {
+    const result = await User.findByIdAndUpdate(id, userFields).lean();
     return result;
 }
 
-export async function deleteUser(request) {
-    const { id } = request.params;
-    const result = await User.findByIdAndDelete(id);
+export async function deleteUser(id) {
+    const result = await User.findByIdAndDelete(id).lean();
     return result;
 }

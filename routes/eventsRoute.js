@@ -9,12 +9,15 @@ const router = express.Router();
 // Outputs the event or handles error accordingly
 router.post('/', async (request, response) => {
     try {
+        // Update the validation to reflect the new required fields based on the updated schema
         if (
-            // !request.body._eventId ||
             !request.body.name ||
+            !request.body.groupName || // Add this line to check for the group name
             !request.body.date ||
-            request.body.communityId == null ||
-            request.body.isPublic == null
+            !request.body.time || // Add this line to check for the event time
+            !request.body.location || // Add this line to check for the event location
+            !request.body.description || // Add this line to check for the event description
+            !request.body.communityID // Add this
         ) {
             return response.status(400).send({
                 message: 'Send all required fields.'
@@ -56,11 +59,13 @@ router.get('/:id', async (request, response) => {
 router.put('/:id', async (request, response) => {
     try {
         if ( // make sure that we have good security to prevent data change for id in frontend
-            // !request.body._eventId || // adjust these added conditions because not all may apply or may be needed
             !request.body.name ||
+            !request.body.groupName || // Add this line to check for the group name
             !request.body.date ||
-            request.body.communityId == null ||
-            request.body.isPublic == null
+            !request.body.time || // Add this line to check for the event time
+            !request.body.location || // Add this line to check for the event location
+            !request.body.description || // Add this line to check for the event description
+            !request.body.communityID // Add this
         ) {
             return response.status(400).send({
                 message: 'Send all required fields.'

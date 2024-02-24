@@ -1,63 +1,44 @@
 import mongoose from "mongoose";
 
-// Event schema as defined by the document
-
-// Required:
-// name: string
-// date: date
-// communityId: string
-// isPublic: boolean
-
-// timestamps will also be used
-
-// Optional:
-// participants: array
-// admins: array
-// description: string
-// location: string
-
+// New Event schema based on the frontend requirements
 
 const eventSchema = mongoose.Schema(
     {
-        // _eventId: {
-        //     type: String,
-        //     required: true,
-        // },
         name: {
             type: String,
             required: true,
         },
+        groupName: {
+            type: String,
+            required: true, // Assuming the groupName is required as per frontend data
+        },
         date: {
-            type: Date,
+            type: String, // Changing to String to accommodate separate date and time if necessary
             required: true,
         },
-        participants: {
-            type: [String],
-            required: false,
-        },
-        admins: {
-            type: [String],
-            required: false,
-        },
-        description: {
-            type: String,
-            required: false,
+        time: {
+            type: String, // Adding time as a separate field as per frontend data
+            required: true,
         },
         location: {
             type: String,
-            required: false,
+            required: true,
         },
-        communityId: {
+        description: {
             type: String,
-            required: true,
+            required: true, // Set to true based on frontend showing descriptions for events
         },
-        isPublic: {
-            type: Boolean,
-            required: true,
+        members: {
+            type: [String],
+            required: false, // Set false as it's empty in frontend, adjust based on actual use
+        },
+        communityID: {
+            type: String,
+            required: true, // Assuming communityID is required
         },
     },
     {
-        timestamps: true,
+        timestamps: true, // Keeping timestamps for creation and update tracking
     }
 );
 

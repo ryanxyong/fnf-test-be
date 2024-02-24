@@ -5,14 +5,19 @@ import { Event } from '../models/eventModel.js';
 // Expects a name, date, communityId and isPublic
 // Outputs the event or handles error accordingly (error handling done in route file)
 export async function createEvent(request) {
+    // Updated newEvent object to match the new schema
     const newEvent = {
-        // _eventId: request.body._eventId,
         name: request.body.name,
+        groupName: request.body.groupName, // Added groupName from the request body
         date: request.body.date,
-        communityId: request.body.communityId,
-        isPublic: request.body.isPublic,
+        time: request.body.time, // Added time from the request body
+        location: request.body.location, // Added location from the request body
+        description: request.body.description, // Added description from the request body
+        members: request.body.members || [], // Defaulting to empty if not provided
+        communityID: request.body.communityID // Added communityID from the request body
     };
 
+    // Create the event using the updated newEvent object
     const event = await Event.create(newEvent);
     return event;
 }

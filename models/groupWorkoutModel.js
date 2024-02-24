@@ -8,18 +8,21 @@ const liftSchema = mongoose.Schema({
 const exercisePlanSchema = mongoose.Schema({
     name: String,
     unit: String,
-    max: String,
     lifts: [liftSchema],
 });
 
-const workoutSchema = mongoose.Schema({
+const groupWorkoutSchema = mongoose.Schema({
     name: { type: String, required: true },
+    groupName: { type: String, required: true},
     time: String, // assuming 'time' refers to the duration e.g. "60 min"
+    date: String,
+    priority: Boolean,
+    location: String,
     plan: [exercisePlanSchema],
 }, {
     timestamps: true,
 });
 
-const WorkoutModel = mongoose.model('Workout', workoutSchema);
+const GroupWorkoutModel = mongoose.model('groupWorkout', groupWorkoutSchema);
 
-export default WorkoutModel;
+export default GroupWorkoutModel;

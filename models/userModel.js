@@ -3,40 +3,57 @@ import bcrypt from "bcryptjs";
 
 const userSchema = mongoose.Schema(
     {
-        _userId: {
-            type: String,
-            unique: true,
-        },
-        email:{
+        email: {
             type: String,
             required: true,
         },
-        password:{
+        password: {
             type: String,
-            required: true, 
+            required: true,
         },
-        fullName: {
-            type: String,
-        },
-        bday: {
-            type: Date,
-        },
-        gender: {
+        firstName: {
             type: String,
         },
-        pic: {
+        lastName: {
+            type: String,
+        },
+        id: {
+            type: String,
+            unique: true,
+            sparse: true,
+        },
+        profilePic: {
             data: Buffer,
             contentType: String,
         },
-        bio: {
+        phoneNumber: {
             type: String,
         },
-        workouts: {
-            type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Workout' }],
+        timeCreated: {
+            type: Number, // or Date, depending on how you handle dates
         },
+        data: {
+            activity: Number,
+            reps: Number,
+            max: Number,
+        },
+        workouts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Workout' }], // Reference to Workout documents
+        schedule: {
+            scheduleVersion: Number,
+            restDayGap: Number,
+            restDays: [Number],
+            workoutSchedule: [String], // Could reference 'Workout' IDs instead if structured that way
+            previousWorkoutIndex: Number,
+            todayWorkoutID: String,
+            daysSinceRest: Number,
+            lastCompletedDay: String,
+        },
+        events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }], // Reference to Event documents
+        teamWorkouts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Workout' }], // Assuming 'teamWorkouts' relates to 'Group' documents
+        settings: {}, // Customize according to your settings schema
     },
     {
-        timestamps: true,
+        timestamps: true, // This adds createdAt and updatedAt timestamps
     }
 );
 

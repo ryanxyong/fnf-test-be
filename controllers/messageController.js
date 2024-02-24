@@ -8,9 +8,9 @@ import { Message } from '../models/messageModel.js';
 // Outputs the message or handles error accordingly (error handling done in route file)
 export async function createMessage(request) {
     const newMessage = {
+        sender: request.body.sender,
+        text: request.body.text,
         chatID: request.body.chatID,
-        senderID: request.body.senderID,
-        message: request.body.message,
     };
 
     const message = await Message.create(newMessage);

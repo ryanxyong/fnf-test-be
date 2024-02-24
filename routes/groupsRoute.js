@@ -8,8 +8,7 @@ router.post('/', async (request, response) => {
     try {
         if (
             !request.body.name ||
-            request.body.type == null ||
-            request.body.accessType == null
+            !request.body.memberCount // Ensure memberCount is provided since it's now required
         ) {
             return response.status(400).send({
                 message: 'Send all required fields.'
@@ -17,8 +16,12 @@ router.post('/', async (request, response) => {
         }
         const newGroup = {
             name: request.body.name,
-            type: request.body.type,
-            accessType: request.body.accessType,
+            memberCount: request.body.memberCount,
+            icon: request.body.icon, // Assuming this is handled differently (e.g., file upload)
+            banner: request.body.banner, // Assuming this is handled differently (e.g., file upload)
+            description: request.body.description, // Assuming optional
+            events: request.body.events            
+            // Not including 'icon' and 'banner' directly, assuming they are handled differently (e.g., file upload)
         };
 
         const group = await Group.create(newGroup);
@@ -30,11 +33,10 @@ router.post('/', async (request, response) => {
     }
 });
 
-// get user's information by ID
+// get group information by ID
 router.get('/info/:id', async (request, response) => {
     try {
         const groupId = request.params.id;
-        // Call on group rather than user
         const group = await Group.findById(groupId);
 
         if (!group) {
@@ -52,17 +54,7 @@ router.get('/info/:id', async (request, response) => {
 router.put('/update/:id', async (request, response) => {
     try {
         const groupId = request.params.id;
-
-        // if (
-        //     !request.body.pic ||
-        //     !request.body.workouts
-        // ) {
-        //     return response.status(400).send({
-        //         message: 'Send all required fields: gender, pic, bio, workouts'
-        //     });
-        // }
-
-        const result = await Group.findByIdAndUpdate(groupId, request.body);
+        const result = await Group.findByIdAndUpdate(groupId, request.body, { new: true }); // Ensure updated group is returned
 
         if (!result) {
             return response.status(404).json({ message: 'Group not found' });

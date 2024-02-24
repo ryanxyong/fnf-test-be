@@ -9,9 +9,9 @@ const router = express.Router();
 // New message
 router.post('/', async (request, response) => {
     try {
-        if (!request.body.chatID ||
-            !request.body.senderID ||
-            !request.body.message) {
+        if (!request.body.sender ||
+            !request.body.text ||
+            !request.body.chatID) {
             return response.status(400).send({ message: 'Data missing' });
         }
 
@@ -30,8 +30,7 @@ router.get('/:id', async (request, response) => {
         const message = await getMessage(request);
 
         // Extract the 'message' property from each message
-        const messageContent = message.message;
-
+        const messageContent = message.text;
         return response.status(200).send(messageContent);
     } catch (error) {
         console.log(error.message);

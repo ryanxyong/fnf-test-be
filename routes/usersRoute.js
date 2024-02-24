@@ -8,7 +8,6 @@ const router = express.Router();
 
 // get user's information by ID
 router.get('/info/:id', async (request, response) => {
-    console.log('getting')
     try {
         const user = await UserController.getUser(request.params.id);
         console.log(user);
@@ -33,7 +32,7 @@ router.put('/update/:id', async (request, response) => {
         //     });
         // }
 
-        const result = await UserController.updateUser(request);
+        const result = await UserController.updateUser(request.params.id, request.body);
         
         if (!result) {
             return response.status(404).json({ message: 'User not found' });
@@ -47,9 +46,9 @@ router.put('/update/:id', async (request, response) => {
 });
 
 // delete user by ID
-router.delete(':/id', requireAuth, async (request, response) => {
+router.delete('/delete/:id', async (request, response) => {
     try {
-        const result = await UserController.deleteUser(request);
+        const result = await UserController.deleteUser(request.params.id);
 
         if (!result) {
             return response.status(404).json({ message: 'User not found' });
@@ -65,8 +64,8 @@ router.delete(':/id', requireAuth, async (request, response) => {
 // Taken from CS52 curriculum
 router.post('/signin', requireSignin, async (req, res) => {
     try {
-      const token = UserController.signin(req.user);
-      res.json({ token, email: req.user.email });
+      const result = UserController.signin(req.user);
+      res.json({ token: result.token, user: result.user });
     } catch (error) {
       res.status(422).send({ error: error.toString() });
     }
