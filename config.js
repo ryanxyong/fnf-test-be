@@ -1,3 +1,3 @@
-export const PORT = 5555;
+export const PORT = process.env.PORT;
 
 export const mongoDBURL = process.env.DB_URL;
