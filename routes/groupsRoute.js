@@ -8,7 +8,12 @@ router.post('/', async (request, response) => {
     try {
         if (
             !request.body.name ||
-            !request.body.memberCount // Ensure memberCount is provided since it's now required
+            !request.body.memberCount || // Ensure memberCount is provided since it's now required
+            request.body.permissions === null ||
+            !request.body.members ||
+            !request.body.admin ||
+            request.body.type === null ||
+            !request.body.autoAdd
         ) {
             return response.status(400).send({
                 message: 'Send all required fields.'
@@ -20,7 +25,12 @@ router.post('/', async (request, response) => {
             icon: request.body.icon, // Assuming this is handled differently (e.g., file upload)
             banner: request.body.banner, // Assuming this is handled differently (e.g., file upload)
             description: request.body.description, // Assuming optional
-            events: request.body.events            
+            events: request.body.events,
+            permissions: request.body.permissions,
+            members: request.body.members,
+            admin: request.body.admin,
+            type: request.body.type,    
+            autoAdd: request.body.autoAdd        
             // Not including 'icon' and 'banner' directly, assuming they are handled differently (e.g., file upload)
         };
 

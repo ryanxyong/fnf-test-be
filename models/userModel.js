@@ -49,7 +49,11 @@ const userSchema = mongoose.Schema(
             lastCompletedDay: String,
         },
         events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }], // Reference to Event documents
-        teamWorkouts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Workout' }], // Assuming 'teamWorkouts' relates to 'Group' documents
+        teamWorkouts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'GroupWorkout' }], // Assuming 'teamWorkouts' relates to 'Group' documents
+        groups: {
+            type: [],
+            required: true
+        },
         settings: {}, // Customize according to your settings schema
     },
     {

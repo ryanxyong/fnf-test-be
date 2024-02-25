@@ -44,7 +44,8 @@ export const signup = async ({ email, password }) => {
       user.workouts = [];
       user.schedule = {};
       user.events = [];
-      user.teamWorkouts = []
+      user.teamWorkouts = [];
+      user.groups = [];
       user.settings = {};
 
       await user.save();

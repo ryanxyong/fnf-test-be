@@ -27,6 +27,26 @@ const groupSchema = mongoose.Schema(
             type: [],
             required: false,
         },
+        permissions: {
+            type: Boolean,
+            required: true,
+        },
+        members: {
+            type: [],
+            required: true, // Set false as it's empty in frontend, adjust based on actual use
+        },
+        admin: {
+            type: [],
+            required: true, // Set false as it's empty in frontend, adjust based on actual use
+        },
+        type: {
+            type: Boolean,
+            required: true,
+        },
+        autoAdd: {
+            type: [],
+            required: true,
+        },
     },
     {
         timestamps: true, // Keeping timestamps for creation and update tracking
